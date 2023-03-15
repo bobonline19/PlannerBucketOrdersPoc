@@ -37,8 +37,8 @@ Currently it can be run as a scheduled task on a computer to post a message to t
  ## Setup
  - Create [sandabox](https://learn.microsoft.com/en-us/office/developer-program/microsoft-365-developer-program-get-started) instance to play with
  - Register an (native) app and get [client ID](https://learn.microsoft.com/en-us/graph/auth-register-app-v2)
- - Create a team and note the ##Config.GroupName##
- - Create a Planner plan for the team and note the ##Config.PlanName##
+ - Create a team and note the **Config.GroupName**
+ - Create a Planner plan for the team and note the **Config.PlanName**
  - Create a channel for the team and register an [Incoming Web Hook](https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook)
  - Create an ISecrets implementatoion with app registered ClientID and WebHookURL (not checked in)
  
@@ -66,7 +66,7 @@ Currently it can be run as a scheduled task on a computer to post a message to t
    - Planner Web. in the percent complete view
    - Plaaner app on mobile
    - Add the plan to teams
-   - Get teams notification on phone when ##an order changes## state!
+   - Get teams notification on phone when **an order changes** state!
    - No need to instal another app on phone
    - Managers can monitor shipments
 
