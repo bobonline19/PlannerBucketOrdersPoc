@@ -1,5 +1,14 @@
 # PlannerBucketOrdersPoc
 A proof of concept using a planner board to track order fulfillment by moving tasks through buckets
+<picture>
+  <img alt="The planner that is monitored by the code" src="https://github.com/bobonline19/PlannerBucketOrdersPoc/blob/798a9cca639ea6aff7fd5c2ea789331b7de0cb00/docs/Planner.jpeg">
+</picture>
+
+Currently it can be run as a scheduled task on a computer to post a message to the Teams channel when a task changes bucket.
+<picture>
+  <img alt="A teams message because a task has changed bucket" src="https://github.com/bobonline19/PlannerBucketOrdersPoc/blob/798a9cca639ea6aff7fd5c2ea789331b7de0cb00/docs/change%20notification.png">
+</picture>
+
 
 Lets see how far we get with this in very little time.
 
