@@ -45,7 +45,8 @@ namespace PlannerPoc
       List<TaskDto> taskData = tasks.Value.Select(t => new TaskDto(t.Id, t.BucketId, t.Title)).ToList();
       ////var result = await graphClient.Planner.Plans["{plannerPlan-id}"].Tasks.GetAsync();
 
-      var contents = System.Text.Json.JsonSerializer.Serialize(taskData);
+      var options = new System.Text.Json.JsonSerializerOptions() {WriteIndented = true};
+      var contents = System.Text.Json.JsonSerializer.Serialize(taskData, options);
       //var groupDrive = await graphClient.Groups[group.Id].Drive.GetAsync(r => r.QueryParameters.Expand=new string[]{"children($select=id,name)"});
       //var groupDrive = await graphClient.Groups[group.Id].Drive.GetAsync();
       //groupDrive.Root.[]
