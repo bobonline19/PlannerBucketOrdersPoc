@@ -42,7 +42,7 @@ namespace PlannerPoc
         {
             try
                 {
-                    string body = CardBody.Replace("REMPLACEME", text);
+                    string body = CardBody.Replace("REPLACEME", text);
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     var content = new StringContent(body, System.Text.Encoding.UTF8, "application/json");
                     var response = await client.PostAsync(webhookUrl, content);
