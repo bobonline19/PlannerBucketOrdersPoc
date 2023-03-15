@@ -4,6 +4,12 @@ using Microsoft.Graph;
 namespace PlannerPoc
 {
 
+  public static class Config
+  {
+      public const string GroupName = "Orders";
+      public const string PlanName = "ShipOrders";
+  }
+
   public static class Program
   {
     public static async Task Main(string[] args)
@@ -17,22 +23,19 @@ namespace PlannerPoc
       {
         ClientId = secrets.ClientID
       };
-
-      string groupName = "Orders";
-      string planName = "ShipOrders";
-
+  
       var tokenCredential = new InteractiveBrowserCredential(interactiveBrowserCredentialOptions);
 
       var graphClient = new GraphServiceClient(tokenCredential, scopes);
 
       var me = await graphClient.Me.GetAsync();
 
-      var groups = await graphClient.Groups.GetAsync(r => r.QueryParameters.Filter=$"displayName eq '{groupName}'");
+      var groups = await graphClient.Groups.GetAsync(r => r.QueryParameters.Filter=$"displayName eq '{Config.GroupName}'");
       var group = groups.Value.AsEnumerable().Single();
       //var group = groups.Where(g => g.Name == groupName).Select(g => g.Id).FirstOrDefault();
 
       var plans = await graphClient.Groups[group.Id].Planner.Plans.GetAsync();// .GetAsync (r => r.QueryParameters.Filter=$"title eq '{planName}'");
-      var plan = plans.Value.Where(p => p.Title == planName).SingleOrDefault();
+      var plan = plans.Value.Where(p => p.Title == Config.PlanName).SingleOrDefault();
       var buckets = await graphClient.Groups[group.Id].Planner.Plans[plan.Id].Buckets.GetAsync ();
       var bucketNames  = buckets.Value.ToDictionary(k => k.Id, v => v.Name);
       bucketNames.Add(string.Empty, string.Empty);
