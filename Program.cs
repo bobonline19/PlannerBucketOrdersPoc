@@ -10,7 +10,7 @@ namespace PlannerPoc
     {
 
       ISecrets secrets = new Secrets();
-      IWebhookPoster poster = new WebhookPoster(new HttpClient(), secrets.ClientID);
+      IWebhookPoster poster = new WebhookPoster(new HttpClient(), secrets.IncomingWebHookUrl);
 
       var scopes = new[] { "User.Read", "Group.Read.All", "Tasks.Read" };
       var interactiveBrowserCredentialOptions = new InteractiveBrowserCredentialOptions
@@ -59,7 +59,7 @@ namespace PlannerPoc
           var oldBucket = oldData.Where(x =>x.id == task.id).Select(b => b.bucket).FirstOrDefault () ?? string.Empty;
           if (task.bucket != oldBucket)
           {
-            string change = $"CHANGE {task.title} Bucket {bucketNames[oldBucket]} to {bucketNames[task.bucket]}";
+            string change = $"CHANGE For '{task.title}' moved from '{bucketNames[oldBucket]}' to '{bucketNames[task.bucket]}'";
             Console.WriteLine(change);
             await poster.PostMessageAsync(change);
           }
