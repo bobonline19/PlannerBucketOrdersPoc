@@ -9,6 +9,7 @@ next set of people need to act to fulfil the order?
 </picture>
 
 Currently it can be run as a scheduled task on a computer to post a message to the Teams channel when a task changes bucket.
+
 <picture>
   <img alt="A teams message because a task has changed bucket" src="https://github.com/bobonline19/PlannerBucketOrdersPoc/blob/798a9cca639ea6aff7fd5c2ea789331b7de0cb00/docs/change%20notification.png">
 </picture>
@@ -51,7 +52,7 @@ Currently it can be run as a scheduled task on a computer to post a message to t
  - If there is a previous file the snapshot is compared to the previous file
  - If the bucket ID of a task does not match the previous bucket ID a message is posted to
    - the console
-   - the webhook
+   - the webhook (and into Teams!)
 
 ## ToDo
 - Store the snapshot file to the team drive not locally
