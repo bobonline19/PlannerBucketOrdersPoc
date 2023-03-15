@@ -35,10 +35,10 @@ Currently it can be run as a scheduled task on a computer to post a message to t
  
  # Where we have got to
  ## Setup
- - Create sandabox instance to play with
- - Register an (native) app and get client ID
- - Create a team and note the ~Config.GroupName~
- - Create a Planner plan for the team and note the ~Config.PlanName~
+ - Create [sandabox](https://learn.microsoft.com/en-us/office/developer-program/microsoft-365-developer-program-get-started) instance to play with
+ - Register an (native) app and get [client ID](https://learn.microsoft.com/en-us/graph/auth-register-app-v2)
+ - Create a team and note the ##Config.GroupName##
+ - Create a Planner plan for the team and note the ##Config.PlanName##
  - Create a channel for the team and register an [Incoming Web Hook](https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook)
  - Create an ISecrets implementatoion with app registered ClientID and WebHookURL (not checked in)
  
@@ -46,8 +46,8 @@ Currently it can be run as a scheduled task on a computer to post a message to t
  - Each time the console app is run the plan tasks are captured to a json file as a snapshot
  - If there is a previous file the snapshot is compared to the previous file
  - If the bucket ID of a task does not match the previous bucket ID a message is posted to
-  - the console
-  - the webhook
+   - the console
+   - the webhook
 
 ## ToDo
 - Store the snapshot file to the team drive not locally
@@ -55,19 +55,19 @@ Currently it can be run as a scheduled task on a computer to post a message to t
 - Report the changes with an incrementing ID
 - Using a polling Power Automate Custom Trigger to spot the new Change ID and trigger a flow
 - The flow can be used to
-  - Post the teams message
-  - Assign to a team member
-  - whatever we like
+   - Post the teams message
+   - Assign to a team member
+   - whatever we like
 - Tidy attachments to a folder rather than the root of the team (when added via the planner app)
 
 # Benefits
 - The whole team can see the status of the shipments to send for the week
-  - Planner Web. in the scheduled view
-  - Planner Web. in the percent complete view
-  - Plaaner app on mobile
-  - Add the plan to teams
-  - Get teams notification on phone when #an order changes~ state!
-  - No need to instal another app on phone
-  - Managers can monitor shipments
+   - Planner Web. in the scheduled view
+   - Planner Web. in the percent complete view
+   - Plaaner app on mobile
+   - Add the plan to teams
+   - Get teams notification on phone when ##an order changes## state!
+   - No need to instal another app on phone
+   - Managers can monitor shipments
 
 [![Hack Together: Microsoft Graph and .NET](https://img.shields.io/badge/Microsoft%20-Hack--Together-orange?style=for-the-badge&logo=microsoft)](https://github.com/microsoft/hack-together)
