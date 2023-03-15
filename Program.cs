@@ -6,14 +6,16 @@ namespace PlannerPoc
 
   public static class Program
   {
-
-    public static async Task Main(StringSplitOptions[] args)
+    public static async Task Main(string[] args)
     {
-      Console.WriteLine("Hello, World!");
+
+      ISecrets secrets = new Secrets();
+      IWebhookPoster poster = new WebhookPoster(new HttpClient(), secrets.ClientID);
+
       var scopes = new[] { "User.Read", "Group.Read.All", "Tasks.Read" };
       var interactiveBrowserCredentialOptions = new InteractiveBrowserCredentialOptions
       {
-        ClientId = Secrets.ClientID
+        ClientId = secrets.ClientID
       };
 
       string groupName = "Orders";
@@ -31,6 +33,9 @@ namespace PlannerPoc
 
       var plans = await graphClient.Groups[group.Id].Planner.Plans.GetAsync();// .GetAsync (r => r.QueryParameters.Filter=$"title eq '{planName}'");
       var plan = plans.Value.Where(p => p.Title == planName).SingleOrDefault();
+      var buckets = await graphClient.Groups[group.Id].Planner.Plans[plan.Id].Buckets.GetAsync ();
+      var bucketNames  = buckets.Value.ToDictionary(k => k.Id, v => v.Name);
+      bucketNames.Add(string.Empty, string.Empty);
 
       var tasks = await graphClient.Planner.Plans[plan.Id].Tasks.GetAsync ();
 
@@ -38,8 +43,30 @@ namespace PlannerPoc
       ////var result = await graphClient.Planner.Plans["{plannerPlan-id}"].Tasks.GetAsync();
 
       var contents = System.Text.Json.JsonSerializer.Serialize(taskData);
-      var groupDrive = await graphClient.Groups[group.Id].Drive.GetAsync(r => r.QueryParameters.Expand=new string[]{"children($select=id,name)"});
-      var root = groupDrive.Root;
+      //var groupDrive = await graphClient.Groups[group.Id].Drive.GetAsync(r => r.QueryParameters.Expand=new string[]{"children($select=id,name)"});
+      //var groupDrive = await graphClient.Groups[group.Id].Drive.GetAsync();
+      //groupDrive.Root.[]
+      //graphClient.Drives[groupDrive.Id].Items[3].it
+      //var root = groupDrive.Root;
+      FileInfo newest = new DirectoryInfo(".").GetFiles("contents*.json").OrderByDescending(f => f.CreationTime).FirstOrDefault();
+      if (newest.Exists)
+      {
+        string oldContents = File.ReadAllText(newest.FullName);
+        var oldData = System.Text.Json.JsonSerializer.Deserialize<List<TaskDto>>(oldContents) ?? new List<TaskDto>();
+
+        foreach(var task in taskData)
+        {
+          var oldBucket = oldData.Where(x =>x.id == task.id).Select(b => b.bucket).FirstOrDefault () ?? string.Empty;
+          if (task.bucket != oldBucket)
+          {
+            string change = $"CHANGE {task.title} Bucket {bucketNames[oldBucket]} to {bucketNames[task.bucket]}";
+            Console.WriteLine(change);
+            await poster.PostMessageAsync(change);
+          }
+        }
+      }
+
+      File.WriteAllText($"contents{(Guid.NewGuid())}.json", contents);
 
       Console.WriteLine($"Hello {me?.DisplayName}!");
     }
