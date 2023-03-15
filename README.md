@@ -1,7 +1,7 @@
 # PlannerBucketOrdersPoc
 A proof of concept using a planner board to track order fulfillment by moving tasks through buckets.
 Currently you can only get notifications in Power Automate on Create and Assigned tasks. We need to notify people as a task changes bucket.
-Can we use the Graph API to poll the status of the plan (e.g. every 10 mins) an post a message to the team as an order moves state and the
+Can we use the Graph API to poll the status of the plan (e.g. every 10 mins) and post a message to the team as an order moves state and the
 next set of people need to act to fulfil the order?
 
 <picture>
